@@ -12,6 +12,8 @@
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="P0S_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -26,6 +28,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="EmptyScene.h" />
+    <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="P0S_Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
