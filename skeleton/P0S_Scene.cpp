@@ -91,6 +91,7 @@ void P0S_Scene::init() {
 	//	renderItems.push_back(rt);
 	//}
 #pragma endregion
+
 }
 
 void P0S_Scene::cleanup() {

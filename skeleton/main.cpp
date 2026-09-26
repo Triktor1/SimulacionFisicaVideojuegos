@@ -22,7 +22,7 @@
 // Para las escenas del curso, se incluyen los headers de las prácticas y la escena vacía
 #include "SceneManager.h"
 #include "EmptyScene.h"
-#include "P0S_Scene.h"
+#include "P1S_Scene.h"
 
 #include <foundation/PxSimpleTypes.h>
 #include <PxPhysicsVersion.h> // <- Macros for PhysX version checking
@@ -38,17 +38,18 @@ using namespace physx;
 PxDefaultAllocator		gAllocator;
 PxDefaultErrorCallback	gErrorCallback;
 
-PxFoundation*			gFoundation = NULL;
-PxPhysics*				gPhysics	= NULL;
+PxFoundation* gFoundation = NULL;
+PxPhysics* gPhysics = NULL;
 
 
-PxMaterial*				gMaterial	= NULL;
+PxMaterial* gMaterial = NULL;
 
-PxPvd*                  gPvd        = NULL;
+PxPvd* gPvd = NULL;
 
-PxDefaultCpuDispatcher*	gDispatcher = NULL;
-PxScene*				gScene      = NULL;
+PxDefaultCpuDispatcher* gDispatcher = NULL;
+PxScene* gScene = NULL;
 ContactReportCallback gContactReportCallback;
+
 
 // Global variables for physics timing. We use a fixed timestep for physics simulation, and accumulate time to determine when to step the physics simulation.
 double gPhysicsTimeAccumulator = 0.0;
@@ -69,13 +70,13 @@ void initPhysics(bool interactive)
 
 	gPvd = PxCreatePvd(*gFoundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
-	
-	if(transport){
+
+	if (transport) {
 		gPvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
 	}
-	
 
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(),true,gPvd);
+
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, gPvd);
 
 	if (!gPhysics)
 	{
@@ -92,18 +93,17 @@ void initPhysics(bool interactive)
 
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc.cpuDispatcher = gDispatcher;
-	
-	
+
+
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 	// Registrar las prácticas/escenas del curso
 	SceneManager::instance().registerScene<EmptyScene>("EscenaVacia");
-	SceneManager::instance().registerScene<P0S_Scene>("Escena0");
-	
+	SceneManager::instance().registerScene<P1S_Scene>("Escena1");
 	// Cargar la escena inicial
 	SceneManager::instance().changeScene("EscenaVacia");
-	
+
 }
 
 
@@ -112,7 +112,7 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-	
+
 	if (!gScene) return;
 
 	// Accumulate time and step the physics simulation in fixed timesteps
@@ -139,7 +139,7 @@ void stepPhysics(bool interactive, double t)
 void cleanupPhysics(bool interactive)
 {
 	PX_UNUSED(interactive);
-	 
+
 	// Clean scene and dispatcher first to avoid memory leaks
 	if (gScene) {
 		gScene->release();
@@ -149,10 +149,10 @@ void cleanupPhysics(bool interactive)
 		gDispatcher->release();
 		gDispatcher = nullptr;
 	}
-	
+
 	//Clean extensions before releasing physics
 	PxCloseExtensions();
-	
+
 	// Clean material and physics
 	if (gMaterial) {
 		gMaterial->release();
@@ -187,7 +187,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 	SceneManager::instance().keyPress(key, camera);
 	if (key == '0') {
-		SceneManager::instance().changeScene("Escena0");
+		SceneManager::instance().changeScene("Escena1");
 	}
 }
 
@@ -198,7 +198,7 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 }
 
 
-int main(int, const char*const*)
+int main(int, const char* const*)
 {
 #ifndef OFFLINE_EXECUTION 
 	extern void renderLoop();
@@ -206,7 +206,7 @@ int main(int, const char*const*)
 #else
 	static const PxU32 frameCount = 100;
 	initPhysics(false);
-	for(PxU32 i=0; i<frameCount; i++)
+	for (PxU32 i = 0; i < frameCount; i++)
 		stepPhysics(false);
 	cleanupPhysics(false);
 #endif
