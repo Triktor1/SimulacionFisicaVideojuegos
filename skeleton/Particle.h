@@ -12,6 +12,7 @@ public:
 	Vector3D ac;
 	float damping;
 private:
+	Vector3D antPos;
 	Vector3D vel;
 	physx::PxTransform pose;
 	physx::PxShape* shape;
