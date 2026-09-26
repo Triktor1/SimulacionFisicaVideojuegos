@@ -1,7 +1,7 @@
 #include "P1S_Scene.h"
 
 void P1S_Scene::init() {
-	particles.push_back( new Particle(Vector3D(-10, 0, 0), Vector3D(6, 0, 0)));
+	particles.push_back( new Particle(Vector3D(-10, 0, 0), Vector3D(-4, 0, 0) /*, Vector3D(4, 0, 0), 0.3 */));
 }
 
 void P1S_Scene::update(double dt) {
