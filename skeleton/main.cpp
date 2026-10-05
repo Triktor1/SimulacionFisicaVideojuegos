@@ -130,8 +130,10 @@ void stepPhysics(bool interactive, double t)
 		gScene->fetchResults(true);
 
 		gPhysicsTimeAccumulator -= gFixedTimestep;
+
+		//Lo meto dentro del while y uso gFixedTimestep para que Verlet funcione correctamente
+		SceneManager::instance().update(gFixedTimestep);
 	}
-	SceneManager::instance().update(t);
 }
 
 
