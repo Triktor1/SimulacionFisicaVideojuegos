@@ -27,14 +27,26 @@ public:
 	Vector3D operator+(const Vector3D& other) {
 		return Vector3D(x + other.x, y + other.y, z + other.z);
 	}
+	Vector3D operator+(float escalar) {
+		return Vector3D(x + escalar, y + escalar, z + escalar);
+	}
 	Vector3D operator+=(const Vector3D& other) {
 		x += other.x;
 		y += other.y;
 		z += other.z;
 		return *this;
 	}
+	Vector3D operator+=(float escalar) {
+		x += escalar;
+		y += escalar;
+		z += escalar;
+		return *this;
+	}
 	Vector3D operator-(const Vector3D& other) {
 		return Vector3D(x - other.x, y - other.y, z - other.z);
+	}
+	Vector3D operator-(float escalar) {
+		return Vector3D(x - escalar, y - escalar, z - escalar);
 	}
 	Vector3D operator-=(const Vector3D& other) {
 		x -= other.x;
@@ -42,8 +54,17 @@ public:
 		z -= other.z;
 		return *this;
 	}
+	Vector3D operator-=(float escalar) {
+		x -= escalar;
+		y -= escalar;
+		z -= escalar;
+		return *this;
+	}
 	Vector3D operator*(float escalar) {
 		return Vector3D(x * escalar, y * escalar, z * escalar);
+	}
+	Vector3D operator*(const Vector3D& other) {
+		return Vector3D(x * other.x, y * other.y, z * other.z);
 	}
 	Vector3D operator*=(float escalar) {
 		x *= escalar;
@@ -51,13 +72,28 @@ public:
 		z *= escalar;
 		return *this;
 	}
+	Vector3D operator*=(const Vector3D& other) {
+		x *= other.x;
+		y *= other.y;
+		z *= other.z;
+		return *this;
+	}
 	Vector3D operator/(float escalar) {
 		return Vector3D(x / escalar, y / escalar, z / escalar);
+	}
+	Vector3D operator/(const Vector3D& other) {
+		return Vector3D(x / other.x, y / other.y, z / other.z);
 	}
 	Vector3D operator/=(float escalar) {
 		x /= escalar;
 		y /= escalar;
 		z /= escalar;
+		return *this;
+	}
+	Vector3D operator/=(const Vector3D& other) {
+		x /= other.x;
+		y /= other.y;
+		z /= other.z;
 		return *this;
 	}
 	operator physx::PxVec3() const {

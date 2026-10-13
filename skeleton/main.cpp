@@ -23,6 +23,7 @@
 #include "SceneManager.h"
 #include "EmptyScene.h"
 #include "P1S_Scene.h"
+#include "P1S_Scene2.h"
 
 #include <foundation/PxSimpleTypes.h>
 #include <PxPhysicsVersion.h> // <- Macros for PhysX version checking
@@ -101,6 +102,7 @@ void initPhysics(bool interactive)
 	// Registrar las prácticas/escenas del curso
 	SceneManager::instance().registerScene<EmptyScene>("EscenaVacia");
 	SceneManager::instance().registerScene<P1S_Scene>("Escena1");
+	SceneManager::instance().registerScene<P1S_Scene2>("Escena1B");
 	// Cargar la escena inicial
 	SceneManager::instance().changeScene("EscenaVacia");
 
@@ -188,8 +190,12 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	PX_UNUSED(camera);
 
 	SceneManager::instance().keyPress(key, camera);
-	if (key == '0') {
+	switch (key) {
+	case '0':
 		SceneManager::instance().changeScene("Escena1");
+		break;
+	case '1':
+		SceneManager::instance().changeScene("Escena1B");
 	}
 }
 

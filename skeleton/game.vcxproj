@@ -265,6 +265,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="P0S_Scene.cpp" />
     <ClCompile Include="P1S_Scene.cpp" />
+    <ClCompile Include="P1S_Scene2.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="EmptyScene.h" />
     <ClInclude Include="P0S_Scene.h" />
     <ClInclude Include="P1S_Scene.h" />
+    <ClInclude Include="P1S_Scene2.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="RenderUtils.hpp" />

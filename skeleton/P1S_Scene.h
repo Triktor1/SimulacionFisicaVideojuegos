@@ -1,6 +1,7 @@
 #pragma once
 #include "EmptyScene.h"
 #include "Particle.h"
+#include "Projectile.h"
 
 class P1S_Scene :
     public EmptyScene
