@@ -25,7 +25,9 @@ void ParticleSystem::update(float dt) {
 				p->verlet(dt);
 
 				//Reducimos el tamaño en función de su tamaño original y la vida que ha perdido
-				p->setScale(p->getScale() * (p->getLifeTime() / p->getOriginalLifeTime()));
+				float sc = p->getOriginalScale() * (p->getLifeTime() / p->getOriginalLifeTime());
+				if (sc == 0) sc = 0.0001f;
+				p->setScale(sc);
 
 				//Le quitamos tiempo de vida
 				p->setLifeTime(p->getLifeTime() - dt*1000);

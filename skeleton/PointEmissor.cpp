@@ -1,11 +1,11 @@
 #include "PointEmissor.h"
 
 PointEmissor::PointEmissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir, float minVel, float maxVel,
-	float freq, float lifeTime, Vector4 color)
-	: Emissor(ps, type, pos, dir, minVel, maxVel, freq, lifeTime, color) {
+	float minScale, float maxScale, float freq, float lifeTime, Vector4 color)
+	: Emissor(ps, type, pos, dir, minVel, maxVel, minScale, maxScale, freq, lifeTime, color) {
 }
 
-void PointEmissor::getNewParticle(ParticleType type) {
+Particle* PointEmissor::getNewParticle(ParticleType type) {
 	if (partSystem) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
@@ -17,6 +17,7 @@ void PointEmissor::getNewParticle(ParticleType type) {
 			p->setVel((dir.normalize() * newFloat(minVel, maxVel)));
 			p->setColor(color);
 			p->setScale(p->getOriginalScale());
+			return p;
 		}
 	}
 }

@@ -13,12 +13,11 @@ class Emissor
 {
 public:
 	Emissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir,
-		float minVel = 1.0f, float maxVel = 2.0f,
+		float minVel = 1.0f, float maxVel = 2.0f, float minScale = 1.0f, float maxScale = 3.0f,
 		float freq = 1.0f, float lifeTime = 5.0f,
 		Vector4 color = Vector4(1, 1, 1, 1));
 
 	void update(float dt);
-
 
 	//Cambia la distribución aleatoria del emisor. 
 	//Las variables adicionales se usan solo en caso de que se elija una distribución:
@@ -29,8 +28,10 @@ public:
 	void setColor(Vector4 c) { color = c; }
 	void setLifeTime(float l) { lifeTime = l; }
 	void setRandomColors(bool r) { randomColor = r; }
+	void setMinScale(float s) { minScale = s; }
+	void setLifeTimeInterval(float t) { lifeTimeInterval = t; }
 
-	virtual void getNewParticle(ParticleType) = 0;
+	virtual Particle* getNewParticle(ParticleType) = 0;
 
 protected:
 	ParticleSystem* partSystem;
@@ -39,6 +40,7 @@ protected:
 	float lifeTime;
 	float minVel, maxVel;
 	float normalMean, normalStddev;
+	float minScale, maxScale;
 
 	Vector3D pos, dir, gravity;
 	Vector4 color;
@@ -46,16 +48,18 @@ protected:
 	bool active, randomColor;
 
 	ParticleType type = ParticleType::PARTICLE;
-	Distribution dist = NORMAL;
+	Distribution dist = UNIFORM;
 
 	std::normal_distribution<float> normalDist;
 	std::uniform_real_distribution<float> uniformDist;
 
-	const float lifeTimeInterval = 10.0f;
+	float lifeTimeInterval = 500.0f;
 
 	float newFloat(float, float);
 
 private:
+	float timeToEmit = 0.0f;
+
 	void setNormalDistribution(float, float);
 	void setUniformDistribution(float, float);
 };

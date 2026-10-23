@@ -4,8 +4,7 @@
 Particle::Particle(Vector3D pos, Vector3D vel, Vector3D ac, float r, Vector4 color, float d, Vector3D gravity, float mass)
 	: vel(vel), ac(ac), damping(d), antPos(pos), mass(mass), gravity(gravity), scale(r), iniScale(r), color(color) {
 	pose = physx::PxTransform(pos);
-	shape = CreateShape(physx::PxSphereGeometry(scale));
-	renderItem = new RenderItem(shape, &pose, color);
+	renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(scale)), &pose, color);
 }
 
 Particle::~Particle() {
@@ -36,37 +35,24 @@ void Particle::verlet(double t) {
 		pose.p = 2 * pose.p - antPos + (ac + gravity) * pow(t, 2);
 		antPos = ant;
 	}
-	if (getVisible()) {
-		lifeTime -= t;
-	}
 }
 
 void Particle::setShape(physx::PxShape* s) {
-	if (shape)
-		shape->release();
-	shape = s;
-	if (shape)
-		shape->acquireReference();
-
-	if (renderItem->shape) {
-		renderItem->shape->release();
-		renderItem->shape = nullptr;
+	if (renderItem) {
+		renderItem->release();
+		renderItem = nullptr;
 	}
-	renderItem->shape = s;
-	if (renderItem->shape)
-		renderItem->shape->acquireReference();
+	renderItem = new RenderItem(s, &pose, color);
 }
 
 void Particle::setVisible(bool v) {
-	if (v) {
-		if (!renderItem) {
-			renderItem = new RenderItem(shape, &pose, color);
-		}
+	if (v && !renderItem) {
+		physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(getScale()));
+		renderItem = new RenderItem(shape, &pose, color);
+		firstIntegration = true;
 	}
-	else {
-		if (renderItem) {
-			renderItem->release();
-			renderItem = nullptr;
-		}
+	else if (!v && renderItem) {
+		renderItem->release();
+		renderItem = nullptr;
 	}
 }
