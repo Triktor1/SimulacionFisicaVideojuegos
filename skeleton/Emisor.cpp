@@ -2,7 +2,7 @@
 
 Emissor::Emissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir, float minVel, float maxVel,
 	float minScale, float maxScale, float freq, float lifeTime, Vector4 color)
-	: m_engine(std::random_device{}()), partSystem(ps), type(type), pos(pos), dir(dir), minVel(minVel), maxVel(maxVel),
+	: m_engine(std::random_device{}()), partSystem(ps), type(type), pos(pos), dir(dir.normalize()), minVel(minVel), maxVel(maxVel),
 	minScale(minScale), maxScale(maxScale), freq(freq), lifeTime(lifeTime), color(color), active(true), 
 	gravity(Vector3D(0, -10.0f, 0)), normalMean(1), normalStddev(0), randomColor(false) {
 }
@@ -27,10 +27,10 @@ void Emissor::update(float dt) {
 }
 
 void Emissor::setNormalDistribution(float min, float max) {
-	normalMean = min + (max - min) / 2;
-	if (normalStddev == 0)
-		normalDist = std::normal_distribution<float>(normalMean, 1);
-	else normalDist = std::normal_distribution<float>(normalMean, normalStddev);
+	normalMean = (min + max) / 2;
+	normalStddev = (max - min) / 6;
+	if (normalStddev == 0) normalStddev = 0.01;
+	normalDist = std::normal_distribution<float>(normalMean, normalStddev);
 }
 
 void Emissor::setUniformDistribution(float min, float max) {
@@ -39,12 +39,8 @@ void Emissor::setUniformDistribution(float min, float max) {
 	else uniformDist = std::uniform_real_distribution<float>(min, max);
 }
 
-void Emissor::setDistrubution(Distribution d, float stddev) {
+void Emissor::setDistrubution(Distribution d) {
 	dist = d;
-	if (dist == NORMAL) {
-		normalStddev = stddev;
-	}
-
 }
 
 float Emissor::newFloat(float min, float max) {

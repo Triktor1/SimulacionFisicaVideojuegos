@@ -21,6 +21,10 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Emisor.cpp" />
     <ClCompile Include="PointEmissor.cpp" />
+    <ClCompile Include="ConeEmissor.cpp" />
+    <ClCompile Include="PyramidEmissor.cpp" />
+    <ClCompile Include="CircleEmissor.cpp" />
+    <ClCompile Include="RectEmissor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -44,6 +48,10 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Emisor.h" />
     <ClInclude Include="PointEmissor.h" />
+    <ClInclude Include="ConeEmissor.h" />
+    <ClInclude Include="PyramidEmissor.h" />
+    <ClInclude Include="CircleEmissor.h" />
+    <ClInclude Include="RectEmissor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

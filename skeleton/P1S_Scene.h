@@ -3,6 +3,10 @@
 #include "Particle.h"
 #include "Projectile.h"
 #include "PointEmissor.h"
+#include "ConeEmissor.h"
+#include "PyramidEmissor.h"
+#include "CircleEmissor.h"
+#include "RectEmissor.h"
 
 class P1S_Scene :
     public EmptyScene

@@ -262,6 +262,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="CircleEmissor.cpp" />
+    <ClCompile Include="ConeEmissor.cpp" />
     <ClCompile Include="Emisor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="P0S_Scene.cpp" />
@@ -271,6 +273,8 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PointEmissor.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="PyramidEmissor.cpp" />
+    <ClCompile Include="RectEmissor.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
@@ -280,6 +284,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
+    <ClInclude Include="CircleEmissor.h" />
+    <ClInclude Include="ConeEmissor.h" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="Emisor.h" />
     <ClInclude Include="EmptyScene.h" />
@@ -290,6 +296,8 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PointEmissor.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="PyramidEmissor.h" />
+    <ClInclude Include="RectEmissor.h" />
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />

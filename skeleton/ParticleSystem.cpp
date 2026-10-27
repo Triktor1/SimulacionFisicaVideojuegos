@@ -46,3 +46,11 @@ Particle* ParticleSystem::getParticle(ParticleType type) {
 	}
 	return nullptr;
 }
+
+ParticleSystem::~ParticleSystem() {
+	for (auto it = particles.begin(); it != particles.end(); ++it) {
+		for (Particle* p : (*it).second) {
+			delete p;
+		}
+	}
+}

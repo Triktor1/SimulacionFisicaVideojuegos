@@ -20,4 +20,5 @@ Particle* PointEmissor::getNewParticle(ParticleType type) {
 			return p;
 		}
 	}
+	return nullptr;
 }

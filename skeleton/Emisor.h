@@ -5,8 +5,7 @@
 
 enum Distribution {
 	UNIFORM,
-	NORMAL,
-	POISSON
+	NORMAL
 };
 
 class Emissor
@@ -20,9 +19,7 @@ public:
 	void update(float dt);
 
 	//Cambia la distribución aleatoria del emisor. 
-	//Las variables adicionales se usan solo en caso de que se elija una distribución:
-	//NORMAL (normalStddev)
-	void setDistrubution(Distribution, float stddev = 1.0f);
+	void setDistrubution(Distribution);
 
 	void setFreq(float f) { freq = f; }
 	void setColor(Vector4 c) { color = c; }
