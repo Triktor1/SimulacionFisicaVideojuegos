@@ -50,9 +50,11 @@ void Particle::setVisible(bool v) {
 		physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(getScale()));
 		renderItem = new RenderItem(shape, &pose, color);
 		firstIntegration = true;
+		isAlive = true;
 	}
 	else if (!v && renderItem) {
 		renderItem->release();
 		renderItem = nullptr;
+		isAlive = false;
 	}
 }

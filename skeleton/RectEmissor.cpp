@@ -1,13 +1,13 @@
 #include "RectEmissor.h"
 
 RectEmissor::RectEmissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir,
-	float l, float minVel, float maxVel, float minScale, float maxScale,
+	float LX, float LY, float minVel, float maxVel, float minScale, float maxScale,
 	float freq, float lifeTime, Vector4 color)
-	: Emissor(ps, type, pos, dir, minVel, maxVel, minScale, maxScale, freq, lifeTime, color), l(l) {
+	: Emissor(ps, type, pos, dir, minVel, maxVel, minScale, maxScale, freq, lifeTime, color), LX(LX), LY(LY) {
 }
 
 Particle* RectEmissor::getNewParticle(ParticleType type) {
-	if (partSystem) {
+	if (partSystem && active) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
 			//Dos vectores perpendiculares a la dirección que forman los ejes del plano en el que están las bases de la pirámide
@@ -16,8 +16,8 @@ Particle* RectEmissor::getNewParticle(ParticleType type) {
 			Vector3D up = dir.cross(right).normalize();
 
 			//Posiciones aleatorias en los dos cuadrados
-			float rndW = newFloat(-l / 2, l / 2);
-			float rndH = newFloat(-l / 2, l / 2);
+			float rndW = newFloat(-LX / 2, LX / 2);
+			float rndH = newFloat(-LY / 2, LY / 2);
 			Vector3D position = pos + right * rndW + up * rndH;
 
 			p->setVisible(true);

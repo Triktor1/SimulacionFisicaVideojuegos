@@ -6,7 +6,7 @@ PointEmissor::PointEmissor(ParticleSystem* ps, ParticleType type, Vector3D pos, 
 }
 
 Particle* PointEmissor::getNewParticle(ParticleType type) {
-	if (partSystem) {
+	if (partSystem && active) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
 			p->setVisible(true);
@@ -15,6 +15,7 @@ Particle* PointEmissor::getNewParticle(ParticleType type) {
 			p->setLifeTime(l);
 			p->setOriginalLifeTime(l);
 			p->setVel((dir.normalize() * newFloat(minVel, maxVel)));
+			//if (type == PROJECTILE) static_cast<Projectile*>(p)->setVelReal(p->getVel() / 5);
 			p->setColor(color);
 			p->setScale(p->getOriginalScale());
 			return p;

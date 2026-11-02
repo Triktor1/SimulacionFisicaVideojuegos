@@ -21,6 +21,4 @@ private:
     std::vector<physx::PxTransform*> transforms;
     std::vector<RenderItem*> renderItems;
     std::vector<Particle*> particles;
-    std::vector<Emissor*> emissors;
-    ParticleSystem* ps;
 };

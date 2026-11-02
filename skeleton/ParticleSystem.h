@@ -1,13 +1,13 @@
 #pragma once
-#include "Projectile.h"
+#include "StaticParticle.h"
 #include <unordered_map>
 #include <random>
 
-static constexpr int PARTICLE_NUM = 5000;
+static constexpr int PARTICLE_NUM = 2500;
 
 enum ParticleType {
-	PROJECTILE = 0,
-	PARTICLE,
+	PARTICLE = 0,
+	STATIC,
 	NUM_TYPES
 };
 
@@ -20,6 +20,9 @@ public:
 	void update(float dt);
 	Particle* getParticle(ParticleType);
 
+	void setReduceScale(bool s) { reduceScale = s; }
+
 private:
 	std::unordered_map<ParticleType, std::vector<Particle*>> particles;
+	bool reduceScale;
 };

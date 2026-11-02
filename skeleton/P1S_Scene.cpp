@@ -1,26 +1,14 @@
 #include "P1S_Scene.h"
 
 void P1S_Scene::init() {
-	//particles.push_back(new Particle(Vector3D(-10, 0, 0), Vector3D(-4, 0, 0), Vector3D(4, 0, 0), 1));
-	//particles.push_back(new Projectile(Vector3D(-10, 40, 0), Vector3D(4, 0, 0), Vector3D(250, 0, 0), Vector3D(4, 0, 0)));
-	ps = new ParticleSystem();
-	//emissors.push_back(new PointEmissor(ps, ParticleType::PARTICLE, Vector3(0, 3, 3), Vector3(0, 1, 0), 10, 30, 2, 5, 0.05, 1000));
-	//emissors.push_back(new ConeEmissor(ps, ParticleType::PARTICLE, Vector3D(0, 3, 3), Vector3D(0, -1, 0), 30, 60, 10, 10, 10, 2, 5, 0.05, 10000));
-	//emissors.push_back(new PyramidEmissor(ps, ParticleType::PARTICLE, Vector3D(0, 3, 3), Vector3D(0, 1, 0), 30, 60, 10, 10, 10, 2, 5, 0.05, 10000));
-	//emissors.push_back(new CircleEmissor(ps, ParticleType::PARTICLE, Vector3D(0, 3, 3), Vector3D(0, 1, 0), 30, 10, 10, 2, 5, 0.05, 10000));
-	emissors.push_back(new RectEmissor(ps, ParticleType::PARTICLE, Vector3D(0, 3, 3), Vector3D(0, 1, 0), 30, 10, 10, 2, 5, 0.005, 1000));
-	emissors.back()->setRandomColors(false);
-	//emissors.back()->setDistrubution(Distribution::NORMAL);
+	particles.push_back(new Particle(Vector3D(-10, 0, 0), Vector3D(-4, 0, 0), Vector3D(4, 0, 0), 1));
+	particles.push_back(new Projectile(Vector3D(-10, 40, 0), Vector3D(4, 0, 0), Vector3D(250, 0, 0), Vector3D(4, 0, 0)));
 }
 
 void P1S_Scene::update(double dt) {
-	ps->update(dt);
-	for (Emissor* e : emissors) {
-		e->update(dt);
-	}
 	for (auto& p : particles) {
 		p->verlet(dt);
-	}
+	}	
 }
 
 void P1S_Scene::cleanup() {
@@ -42,5 +30,4 @@ void P1S_Scene::cleanup() {
 			p = nullptr;
 		}
 	}
-	delete ps;
 }

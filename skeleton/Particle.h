@@ -26,7 +26,7 @@ public:
 	Vector3D getPos() const { return pose.p; }
 	Vector3D getVel() const { return vel; }
 	float getMass() const { return mass; }
-	bool getVisible() const { return renderItem != nullptr; };
+	bool getAlive() const { return isAlive; };
 	float getLifeTime() const { return lifeTime; }
 	float getOriginalLifeTime() const { return originalLifeTime; }
 	float getScale() const { return scale; }
@@ -49,5 +49,6 @@ private:
 	RenderItem* renderItem;
 	bool firstIntegration = true;
 	Vector4 color;
+	bool isAlive = true;
 };
 

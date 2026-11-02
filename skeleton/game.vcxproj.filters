@@ -25,6 +25,11 @@
     <ClCompile Include="PyramidEmissor.cpp" />
     <ClCompile Include="CircleEmissor.cpp" />
     <ClCompile Include="RectEmissor.cpp" />
+    <ClCompile Include="ForceGenerator.cpp" />
+    <ClCompile Include="P2S_Scene.cpp" />
+    <ClCompile Include="StaticParticle.cpp" />
+    <ClCompile Include="CubeEmissor.cpp" />
+    <ClCompile Include="SphereEmissor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -52,6 +57,11 @@
     <ClInclude Include="PyramidEmissor.h" />
     <ClInclude Include="CircleEmissor.h" />
     <ClInclude Include="RectEmissor.h" />
+    <ClInclude Include="ForceGenerator.h" />
+    <ClInclude Include="P2S_Scene.h" />
+    <ClInclude Include="StaticParticle.h" />
+    <ClInclude Include="CubeEmissor.h" />
+    <ClInclude Include="SphereEmissor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

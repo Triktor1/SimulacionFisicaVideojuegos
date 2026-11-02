@@ -1,14 +1,14 @@
 #include "PyramidEmissor.h"
 
 PyramidEmissor::PyramidEmissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir,
-	float baseL, float endL, float pyramidHeight, float minVel, float maxVel, float minScale, float maxScale,
+	float baseLX, float endLX, float baseLY, float endLY, float pyramidHeight, float minVel, float maxVel, float minScale, float maxScale,
 	float freq, float lifeTime, Vector4 color)
 	: Emissor(ps, type, pos, dir, minVel, maxVel, minScale, maxScale, freq, lifeTime, color),
-	baseL(baseL), endL(endL), pyramidHeight(pyramidHeight) {
+	baseLX(baseLX), baseLY(baseLY), endLX(endLX), endLY(endLY), pyramidHeight(pyramidHeight) {
 }
 
 Particle* PyramidEmissor::getNewParticle(ParticleType type) {
-	if (partSystem) {
+	if (partSystem && active) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
 			//Dos vectores perpendiculares a la dirección que forman los ejes del plano en el que están las bases de la pirámide
@@ -17,11 +17,11 @@ Particle* PyramidEmissor::getNewParticle(ParticleType type) {
 			Vector3D up = dir.cross(right).normalize();
 
 			//Posiciones aleatorias en los dos cuadrados
-			float rndW = newFloat(-baseL / 2, baseL / 2);
-			float rndH = newFloat(-baseL / 2, baseL / 2);
+			float rndW = newFloat(-baseLX / 2, baseLX / 2);
+			float rndH = newFloat(-baseLY / 2, baseLY / 2);
 			Vector3D pos1 = pos + right * rndW + up * rndH;
-			rndW = rndW / baseL * endL;
-			rndH = rndH / baseL * endL;
+			rndW = rndW / baseLX * endLX;
+			rndH = rndH / baseLY * endLY;
 			Vector3D pos2 = pos + dir * pyramidHeight + right * rndW + up * rndH;
 
 			//Dirección randomizada de la velocidad de forma que la partícula está dentro del cono

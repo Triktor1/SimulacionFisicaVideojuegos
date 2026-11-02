@@ -3,7 +3,7 @@
 Emissor::Emissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D dir, float minVel, float maxVel,
 	float minScale, float maxScale, float freq, float lifeTime, Vector4 color)
 	: m_engine(std::random_device{}()), partSystem(ps), type(type), pos(pos), dir(dir.normalize()), minVel(minVel), maxVel(maxVel),
-	minScale(minScale), maxScale(maxScale), freq(freq), lifeTime(lifeTime), color(color), active(true), 
+	minScale(minScale), maxScale(maxScale), freq(freq), lifeTime(lifeTime), color(color), active(true),
 	gravity(Vector3D(0, -10.0f, 0)), normalMean(1), normalStddev(0), randomColor(false) {
 }
 
@@ -21,25 +21,28 @@ void Emissor::update(float dt) {
 			color = Vector4(r, g, b, 1.0f);
 		}
 		Particle* p = getNewParticle(type);
-		p->setOriginalScale(newFloat(minScale, maxScale));
+		if (p)
+			p->setOriginalScale(newFloat(minScale, maxScale));
 		timeToEmit = freq;
 	}
 }
 
-void Emissor::setNormalDistribution(float min, float max) {
-	normalMean = (min + max) / 2;
-	normalStddev = (max - min) / 6;
-	if (normalStddev == 0) normalStddev = 0.01;
-	normalDist = std::normal_distribution<float>(normalMean, normalStddev);
+void Emissor::applyDistribution(float min, float max) {
+	if (min > max) std::swap(min, max);
+	switch (dist) {
+	case UNIFORM:
+		uniformDist = std::uniform_real_distribution<float>(min, max);
+		break;
+	case NORMAL:
+		normalMean = (min + max) / 2;
+		normalStddev = (max - min) / 6;
+		if (normalStddev == 0) normalStddev = 0.01;
+		normalDist = std::normal_distribution<float>(normalMean, normalStddev);
+		break;
+	}
 }
 
-void Emissor::setUniformDistribution(float min, float max) {
-	if (min > max)
-		uniformDist = std::uniform_real_distribution<float>(min);
-	else uniformDist = std::uniform_real_distribution<float>(min, max);
-}
-
-void Emissor::setDistrubution(Distribution d) {
+void Emissor::setDistribution(Distribution d) {
 	dist = d;
 }
 
@@ -47,14 +50,12 @@ float Emissor::newFloat(float min, float max) {
 	float rnd;
 	switch (dist) {
 	case UNIFORM:
-		setUniformDistribution(min, max);
+		applyDistribution(min, max);
 		rnd = uniformDist(m_engine);
 		break;
 	case NORMAL:
-		setNormalDistribution(min, max);
-		do {
-			rnd = normalDist(m_engine);
-		} while (rnd<min || rnd>max);
+		applyDistribution(min, max);
+		rnd = normalDist(m_engine);
 		break;
 	}
 	return rnd;

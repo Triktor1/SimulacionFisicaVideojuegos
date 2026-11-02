@@ -19,7 +19,7 @@ public:
 	void update(float dt);
 
 	//Cambia la distribución aleatoria del emisor. 
-	void setDistrubution(Distribution);
+	void setDistribution(Distribution);
 
 	void setFreq(float f) { freq = f; }
 	void setColor(Vector4 c) { color = c; }
@@ -27,6 +27,7 @@ public:
 	void setRandomColors(bool r) { randomColor = r; }
 	void setMinScale(float s) { minScale = s; }
 	void setLifeTimeInterval(float t) { lifeTimeInterval = t; }
+	void setActive(bool a) { active = a; }
 
 	virtual Particle* getNewParticle(ParticleType) = 0;
 
@@ -57,6 +58,5 @@ protected:
 private:
 	float timeToEmit = 0.0f;
 
-	void setNormalDistribution(float, float);
-	void setUniformDistribution(float, float);
+	void applyDistribution(float, float);
 };

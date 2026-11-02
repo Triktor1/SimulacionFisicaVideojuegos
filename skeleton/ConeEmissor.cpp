@@ -8,7 +8,7 @@ ConeEmissor::ConeEmissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Ve
 }
 
 Particle* ConeEmissor::getNewParticle(ParticleType type) {
-	if (partSystem) {
+	if (partSystem && active) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
 			//Dos vectores perpendiculares a la dirección que forman los ejes del plano en el que están las bases del cono
