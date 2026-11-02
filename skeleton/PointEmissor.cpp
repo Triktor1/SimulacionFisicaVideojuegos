@@ -18,6 +18,10 @@ Particle* PointEmissor::getNewParticle(ParticleType type) {
 			//if (type == PROJECTILE) static_cast<Projectile*>(p)->setVelReal(p->getVel() / 5);
 			p->setColor(color);
 			p->setScale(p->getOriginalScale());
+			if (type == STATIC && static_cast<StaticParticle*>(p)->getEnlarge()) {
+				StaticParticle* sp = static_cast<StaticParticle*>(p);
+				p->setScale(p->getScale() * sp->getEnlargeThreshold());
+			}
 			return p;
 		}
 	}

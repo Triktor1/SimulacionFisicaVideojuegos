@@ -33,6 +33,10 @@ Particle* ConeEmissor::getNewParticle(ParticleType type) {
 			p->setVel((velDir * newFloat(minVel, maxVel)));
 			p->setColor(color);
 			p->setScale(p->getOriginalScale());
+			if (type == STATIC && static_cast<StaticParticle*>(p)->getEnlarge()) {
+				StaticParticle* sp = static_cast<StaticParticle*>(p);
+				p->setScale(p->getScale() * sp->getEnlargeThreshold());
+			}
 			return p;
 		}
 	}
