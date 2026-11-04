@@ -11,6 +11,7 @@ enum ParticleType {
 	NUM_TYPES
 };
 
+class Emissor;
 class ParticleSystem
 {
 public:
@@ -21,8 +22,11 @@ public:
 	Particle* getParticle(ParticleType);
 
 	void setReduceScale(bool s) { reduceScale = s; }
+	void registerEmissor(Emissor*);
+	void addGeneratorToAll(ForceGenerator*);
 
 private:
 	std::unordered_map<ParticleType, std::vector<Particle*>> particles;
+	std::vector<Emissor*> emissors;
 	bool reduceScale;
 };

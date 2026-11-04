@@ -55,6 +55,7 @@ public:
 	const physx::PxTransform* transform;
 	const physx::PxRigidActor* actor;
 	Vector4 color;
+	float scale;
 
 	unsigned references;
 };

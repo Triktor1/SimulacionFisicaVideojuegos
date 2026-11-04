@@ -30,6 +30,9 @@
     <ClCompile Include="StaticParticle.cpp" />
     <ClCompile Include="CubeEmissor.cpp" />
     <ClCompile Include="SphereEmissor.cpp" />
+    <ClCompile Include="P3S_Scene1.cpp" />
+    <ClCompile Include="GravityForceGenerator.cpp" />
+    <ClCompile Include="ProjectileLauncher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -62,6 +65,9 @@
     <ClInclude Include="StaticParticle.h" />
     <ClInclude Include="CubeEmissor.h" />
     <ClInclude Include="SphereEmissor.h" />
+    <ClInclude Include="P3S_Scene1.h" />
+    <ClInclude Include="GravityForceGenerator.h" />
+    <ClInclude Include="ProjectileLauncher.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

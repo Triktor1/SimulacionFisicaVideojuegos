@@ -1,10 +1,13 @@
 #include "Particle.h"
+#include "ForceGenerator.h"
 #include <iostream>
 
-Particle::Particle(Vector3D pos, Vector3D vel, Vector3D ac, float r, Vector4 color, float d, Vector3D gravity, float mass)
-	: vel(vel), ac(ac), damping(d), antPos(pos), mass(mass), gravity(gravity), scale(r), iniScale(r), color(color) {
+Particle::Particle(Vector3D pos, Vector3D vel, float r, Vector4 color, float d, float mass)
+	: vel(vel), damping(d), antPos(pos), mass(mass), scale(r), iniScale(r), color(color) {
 	pose = physx::PxTransform(pos);
-	renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(scale)), &pose, color);
+	renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(1.0f)), &pose, color);
+	renderItem->scale = getScale();
+	w = 1 / mass;
 }
 
 Particle::~Particle() {
@@ -15,13 +18,17 @@ Particle::~Particle() {
 }
 
 void Particle::euler(double t) {
+	updateForces(t);
+	Vector3D ac = forceAcc * w;
 	pose.p += vel * t;
-	vel += (ac + gravity) * t;
+	vel += ac * t;
 	vel *= pow(damping, t);
 }
 
 void Particle::semiImplicitEuler(double t) {
-	vel = (vel + (ac + gravity) * t) * pow(damping, t);
+	updateForces(t);
+	Vector3D ac = forceAcc * w;
+	vel = (vel + ac * t) * pow(damping, t);
 	pose.p += vel * t;
 }
 
@@ -31,8 +38,10 @@ void Particle::verlet(double t) {
 		firstIntegration = false;
 	}
 	else {
+		updateForces(t);
+		Vector3D ac = forceAcc * w;
 		Vector3D ant = pose.p;
-		pose.p = 2 * pose.p - antPos + (ac + gravity) * pow(t, 2);
+		pose.p = 2 * pose.p - antPos + ac * pow(t, 2);
 		antPos = ant;
 	}
 }
@@ -46,15 +55,25 @@ void Particle::setShape(physx::PxShape* s) {
 }
 
 void Particle::setVisible(bool v) {
-	if (v && !renderItem) {
-		physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(getScale()));
-		renderItem = new RenderItem(shape, &pose, color);
+	isAlive = v;
+	if (v) {
 		firstIntegration = true;
-		isAlive = true;
+		antPos = pose.p;
+		forceAcc = Vector3D();
+		renderItem->scale = getScale();
 	}
-	else if (!v && renderItem) {
-		renderItem->release();
-		renderItem = nullptr;
-		isAlive = false;
+	else {
+		renderItem->scale = 0.0f;
 	}
+}
+
+void Particle::updateForces(double dt) {
+	clearForces();
+	for (ForceGenerator* f : forceGenerators) {
+		f->updateForce(this, dt);
+	}
+}
+
+void Particle::clearForces() {
+	forceAcc = Vector3D();
 }

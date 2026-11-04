@@ -28,8 +28,11 @@ public:
 	void setMinScale(float s) { minScale = s; }
 	void setLifeTimeInterval(float t) { lifeTimeInterval = t; }
 	void setActive(bool a) { active = a; }
+	void setGeneratorsActive(bool a);
 
 	virtual Particle* getNewParticle(ParticleType) = 0;
+
+	void addGenerator(ForceGenerator*);
 
 protected:
 	ParticleSystem* partSystem;
@@ -59,4 +62,5 @@ private:
 	float timeToEmit = 0.0f;
 
 	void applyDistribution(float, float);
+	std::vector<ForceGenerator*> generators;
 };

@@ -264,6 +264,7 @@ void setupDefaultRenderState()
 	glClearColor(0.3f, 0.4f, 0.5f, 1.0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_NORMALIZE);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glBlendFunc(GL_ZERO, GL_SRC_COLOR);
 	//glEnable(GL_BLEND);
@@ -304,7 +305,7 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 	assert(glGetError() == GL_NO_ERROR);
 }
 
-void renderShape(const PxShape& shape, const PxTransform& transform, const PxVec4& color)
+void renderShape(const PxShape& shape, const PxTransform& transform, const PxVec4& color, const float scale)
 {
 	PxGeometryHolder h = shape.getGeometry();
 
@@ -315,6 +316,7 @@ void renderShape(const PxShape& shape, const PxTransform& transform, const PxVec
 	glPushMatrix();
 	PxMat44 mtx(transform);
 	glMultMatrixf(reinterpret_cast<const float*>(&mtx));
+	glScalef(scale, scale, scale);
 	assert(glGetError() == GL_NO_ERROR);
 	glColor4f(color.x, color.y, color.z, 1.0f);
 	assert(glGetError() == GL_NO_ERROR);

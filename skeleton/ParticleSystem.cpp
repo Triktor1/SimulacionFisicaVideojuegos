@@ -1,4 +1,5 @@
 #include "ParticleSystem.h"
+#include "Emisor.h"
 
 ParticleSystem::ParticleSystem() : reduceScale(true) {
 	ParticleType type = (ParticleType)0;
@@ -69,5 +70,15 @@ ParticleSystem::~ParticleSystem() {
 		for (Particle* p : (*it).second) {
 			delete p;
 		}
+	}
+}
+
+void ParticleSystem::registerEmissor(Emissor* e) {
+	emissors.push_back(e);
+}
+
+void ParticleSystem::addGeneratorToAll(ForceGenerator* f) {
+	for (auto e : emissors) {
+		e->addGenerator(f);
 	}
 }

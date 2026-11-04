@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "RenderUtils.hpp"
 #include <vector>
+#include "GravityForceGenerator.h"
 
 class EmptyScene : public Scene {
 public:

@@ -2,6 +2,7 @@
 
 void P2S_Scene::init() {
 	ps = new ParticleSystem();
+
 	//Burbujas de veneno
 	emissors.push_back(new CubeEmissor(ps, ParticleType::STATIC, Vector3D(50, 0, 0), Vector3D(0, 1, 0), 80, 30, 80, 1, 5, 1, 1.5, 0.005, 10000));
 	emissors.back()->setColor(Vector4(76/255.0f, 40/255.0f, 130/255.0f, 1));
@@ -13,6 +14,8 @@ void P2S_Scene::init() {
 	//Cañón de bolas de colorines
 	emissors.push_back(new ConeEmissor(ps, ParticleType::PARTICLE, Vector3D(50, 40, 0), Vector3D(1, 1, 0), 3, 30, 100, 30, 40, 0.75, 1.5, 0.02, 6000));
 	emissors.back()->setRandomColors(true);
+
+	ps->addGeneratorToAll(new GravityForceGenerator(Vector3D(0, -9.81, 0)));
 }
 
 void P2S_Scene::update(double dt) {

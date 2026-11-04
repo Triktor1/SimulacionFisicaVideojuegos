@@ -1,17 +1,20 @@
 #pragma once
 #include "Particle.h"
 
+//Tipo de partícula que no es afectado por las fuerzas. Puede ser usado para hacer efectos como niebla, luciérnagas, etc.
 class StaticParticle :
 	public Particle
 {
 public:
-	StaticParticle(Vector3D pos, Vector3D vel, Vector3D ac = Vector3D(), float r = 1.0f, Vector4 color = Vector4(1, 1, 0, 1), float d = 1.0f);
+	StaticParticle(Vector3D pos, Vector3D vel, float r = 1.0f, Vector4 color = Vector4(1, 1, 0, 1), float d = 1.0f);
 
 	void setEnlarge(bool e) { enlarge = e; }
 	bool getEnlarge() const { return enlarge; }
 
 	void setEnlargeThreshold(float e) { enlargeThreshold = e; }
 	float getEnlargeThreshold() const { return enlargeThreshold; }
+
+	void updateForces(double dt) override {};
 
 private:
 	bool enlarge = true;

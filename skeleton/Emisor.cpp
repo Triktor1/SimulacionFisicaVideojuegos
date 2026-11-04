@@ -5,6 +5,9 @@ Emissor::Emissor(ParticleSystem* ps, ParticleType type, Vector3D pos, Vector3D d
 	: m_engine(std::random_device{}()), partSystem(ps), type(type), pos(pos), dir(dir.normalize()), minVel(minVel), maxVel(maxVel),
 	minScale(minScale), maxScale(maxScale), freq(freq), lifeTime(lifeTime), color(color), active(true),
 	gravity(Vector3D(0, -10.0f, 0)), normalMean(1), normalStddev(0), randomColor(false) {
+	if (ps) {
+		ps->registerEmissor(this);
+	}
 }
 
 void Emissor::update(float dt) {
@@ -20,9 +23,21 @@ void Emissor::update(float dt) {
 			b = newFloat(0, 1);
 			color = Vector4(r, g, b, 1.0f);
 		}
+
 		Particle* p = getNewParticle(type);
-		if (p)
+		if (p) {
+			p->clearForceGenerators();
 			p->setOriginalScale(newFloat(minScale, maxScale));
+			if (type == STATIC && static_cast<StaticParticle*>(p)->getEnlarge()) {
+				StaticParticle* sp = static_cast<StaticParticle*>(p);
+				sp->setScale(sp->getOriginalScale() * sp->getEnlargeThreshold());
+			}
+			else p->setScale(p->getOriginalScale());
+
+			for (auto f : generators) {
+				p->addForceGenerator(f);
+			}
+		}
 		timeToEmit = freq;
 	}
 }
@@ -59,4 +74,14 @@ float Emissor::newFloat(float min, float max) {
 		break;
 	}
 	return rnd;
+}
+
+void Emissor::setGeneratorsActive(bool a) {
+	for (auto f : generators) {
+		f->setActive(a);
+	}
+}
+
+void Emissor::addGenerator(ForceGenerator* f) {
+	generators.push_back(f);
 }
