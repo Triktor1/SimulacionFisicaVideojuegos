@@ -27,6 +27,9 @@ public:
 	void setRandomColors(bool r) { randomColor = r; interpolatedColor = false; }
 	void setInterpolatedColors(bool i, Vector4 c1 = Vector4(1, 1, 1, 1), Vector4 c2 = Vector4(0, 0, 0, 1));
 	void setMinScale(float s) { minScale = s; }
+	void setMaxScale(float s) { maxScale = s; }
+	void setMinVel(float s) { minVel = s; }
+	void setMaxVel(float s) { maxVel = s; }
 	void setLifeTimeInterval(float t) { lifeTimeInterval = t; }
 	void setActive(bool a) { active = a; }
 	void setGeneratorsActive(bool a);

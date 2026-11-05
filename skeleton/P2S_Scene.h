@@ -25,6 +25,7 @@ public:
     void keyPress(unsigned char key, const physx::PxTransform& camera) override;
 private:
     std::vector<Emissor*> emissors;
-    std::vector<ForceGenerator*> generators;
     ParticleSystem* ps;
+    CubeEmissor* venenoEm;
+    ConeEmissor* darkFountEm, * coloresEm;
 };

@@ -85,3 +85,9 @@ void ParticleSystem::addGeneratorToAll(ForceGenerator* f) {
 		e->addGenerator(f);
 	}
 }
+
+void ParticleSystem::setActiveToAll(bool a) {
+	for (Emissor* e : emissors) {
+		e->setActive(a);
+	}
+}

@@ -42,7 +42,6 @@ public:
 
 	virtual void updateForces(double dt);
 	void clearForces();
-
 	void clearForceGenerators() { forceGenerators.clear(); };
 	void addForceGenerator(ForceGenerator* f) { forceGenerators.push_back(f); }
 

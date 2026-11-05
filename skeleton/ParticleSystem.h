@@ -24,6 +24,7 @@ public:
 	void setReduceScale(bool s) { reduceScale = s; }
 	void registerEmissor(Emissor*);
 	void addGeneratorToAll(ForceGenerator*);
+	void setActiveToAll(bool a);
 
 private:
 	std::unordered_map<ParticleType, std::vector<Particle*>> particles;
