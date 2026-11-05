@@ -24,13 +24,17 @@ public:
 	void setFreq(float f) { freq = f; }
 	void setColor(Vector4 c) { color = c; }
 	void setLifeTime(float l) { lifeTime = l; }
-	void setRandomColors(bool r) { randomColor = r; }
+	void setRandomColors(bool r) { randomColor = r; interpolatedColor = false; }
+	void setInterpolatedColors(bool i, Vector4 c1 = Vector4(1, 1, 1, 1), Vector4 c2 = Vector4(0, 0, 0, 1));
 	void setMinScale(float s) { minScale = s; }
 	void setLifeTimeInterval(float t) { lifeTimeInterval = t; }
 	void setActive(bool a) { active = a; }
 	void setGeneratorsActive(bool a);
 
 	virtual Particle* getNewParticle(ParticleType) = 0;
+	bool getActive() const { return active; };
+	bool getInterpolatingColors() { return interpolatedColor; };
+	Vector4 getActualInterpolatedColor(float proportion);
 
 	void addGenerator(ForceGenerator*);
 
@@ -45,8 +49,9 @@ protected:
 
 	Vector3D pos, dir, gravity;
 	Vector4 color;
+	Vector4 interpolatedColor1, interpolatedColor2;
 
-	bool active, randomColor;
+	bool active, randomColor, interpolatedColor;
 
 	ParticleType type = ParticleType::PARTICLE;
 	Distribution dist = UNIFORM;

@@ -17,6 +17,7 @@ Particle* CubeEmissor::getNewParticle(ParticleType type) {
 			Vector3D position = pos + Vector3D(rndW, rndH, rndD);
 
 			p->setVisible(true);
+			p->setActualEmissor(this);
 			p->setPos(position);
 			float l = lifeTime + newFloat(-lifeTimeInterval / 2, lifeTimeInterval / 2);
 			p->setLifeTime(l);

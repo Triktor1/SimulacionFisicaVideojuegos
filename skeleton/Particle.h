@@ -1,9 +1,10 @@
 #pragma once
 #include "Vector3D.h"
 #include "RenderUtils.hpp"
-#include "GravityForceGenerator.h"
 #include "SceneManager.h"
 
+class ForceGenerator;
+class Emissor;
 class Particle
 {
 public:
@@ -15,7 +16,7 @@ public:
 	virtual void verlet(double t);
 
 	void setShape(physx::PxShape* s);
-	void setColor(Vector4 c) { renderItem->color = c; color = c; }
+	void setColor(Vector4 c);
 	void setPos(Vector3D p) { pose.p = p; antPos = p; }
 	void setVel(Vector3D v) { vel = v; }
 	void addForce(Vector3D f) { forceAcc += f; }
@@ -25,6 +26,7 @@ public:
 	void setOriginalLifeTime(float l) { originalLifeTime = l; }
 	void setScale(float s) { renderItem->scale = s; scale = s; }
 	void setOriginalScale(float s) { iniScale = s; }
+	void setActualEmissor(Emissor* e) { actEmissor = e; }
 
 	Vector4 getColor() const { return color; }
 	Vector3D getPos() const { return pose.p; }
@@ -36,6 +38,7 @@ public:
 	float getOriginalLifeTime() const { return originalLifeTime; }
 	float getScale() const { return scale; }
 	float getOriginalScale() const { return iniScale; }
+	Emissor* getActualEmissor() { if (actEmissor) return actEmissor; return nullptr; }
 
 	virtual void updateForces(double dt);
 	void clearForces();
@@ -61,7 +64,7 @@ private:
 	RenderItem* renderItem;
 	bool firstIntegration = true;
 	bool isAlive = true;
-
+	Emissor* actEmissor = nullptr;
 	std::vector<ForceGenerator*> forceGenerators;
 };
 

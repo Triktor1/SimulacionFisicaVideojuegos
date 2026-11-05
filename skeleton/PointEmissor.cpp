@@ -10,6 +10,7 @@ Particle* PointEmissor::getNewParticle(ParticleType type) {
 		Particle* p = partSystem->getParticle(type);
 		if (p) {
 			p->setVisible(true);
+			p->setActualEmissor(this);
 			p->setPos(pos);
 			float l = lifeTime + newFloat(-lifeTimeInterval / 2, lifeTimeInterval / 2);
 			p->setLifeTime(l);

@@ -26,7 +26,7 @@ void ProjectileLauncher::update(float dt) {
 	for (Projectile* p : projectiles) {
 		if (p) {
 			p->verlet(dt);
-			p->setLifeTime(p->getLifeTime() - dt*1000);
+			p->setLifeTime(p->getLifeTime() - dt * 1000);
 			if (p->getLifeTime() <= 0) {
 				p->setVisible(false);
 			}

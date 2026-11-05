@@ -33,6 +33,9 @@
     <ClCompile Include="P3S_Scene1.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="ProjectileLauncher.cpp" />
+    <ClCompile Include="WindForceGenerator.cpp" />
+    <ClCompile Include="WhirlwindForceGenerator.cpp" />
+    <ClCompile Include="ExplosionForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -68,6 +71,9 @@
     <ClInclude Include="P3S_Scene1.h" />
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="ProjectileLauncher.h" />
+    <ClInclude Include="WindForceGenerator.h" />
+    <ClInclude Include="WhirlwindForceGenerator.h" />
+    <ClInclude Include="ExplosionForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

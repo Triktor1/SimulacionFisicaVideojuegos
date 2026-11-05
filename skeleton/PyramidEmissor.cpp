@@ -28,6 +28,7 @@ Particle* PyramidEmissor::getNewParticle(ParticleType type) {
 			Vector3D velDir = (pos2 - pos1).normalize();
 
 			p->setVisible(true);
+			p->setActualEmissor(this);
 			p->setPos(pos1);
 			float l = lifeTime + newFloat(-lifeTimeInterval / 2, lifeTimeInterval / 2);
 			p->setLifeTime(l);

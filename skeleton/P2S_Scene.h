@@ -9,6 +9,9 @@
 #include "RectEmissor.h"
 #include "CubeEmissor.h"
 #include "SphereEmissor.h"
+#include "GravityForceGenerator.h"
+#include "WindForceGenerator.h"
+#include "ExplosionForceGenerator.h"
 
 class P2S_Scene :
     public EmptyScene
@@ -19,8 +22,9 @@ public:
     void init() override;
     void cleanup() override;
     void update(double dt) override;
+    void keyPress(unsigned char key, const physx::PxTransform& camera) override;
 private:
     std::vector<Emissor*> emissors;
+    std::vector<ForceGenerator*> generators;
     ParticleSystem* ps;
-    Vector4 c = Vector4(0, 0, 0, 1);
 };

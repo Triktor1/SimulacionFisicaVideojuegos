@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "Emisor.h"
 #include "ForceGenerator.h"
 #include <iostream>
 
@@ -54,6 +55,16 @@ void Particle::setShape(physx::PxShape* s) {
 	renderItem = new RenderItem(s, &pose, color);
 }
 
+void Particle::setColor(Vector4 c) {
+	Vector4 col = c;
+	Emissor* e = getActualEmissor();
+	if (e && e->getInterpolatingColors()) {
+		col = e->getActualInterpolatedColor(lifeTime / originalLifeTime);
+	}
+	renderItem->color = col;
+	color = col;
+}
+
 void Particle::setVisible(bool v) {
 	isAlive = v;
 	if (v) {
@@ -64,6 +75,7 @@ void Particle::setVisible(bool v) {
 	}
 	else {
 		renderItem->scale = 0.0f;
+		setActualEmissor(nullptr);
 	}
 }
 

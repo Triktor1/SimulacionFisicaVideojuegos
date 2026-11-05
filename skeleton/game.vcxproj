@@ -266,6 +266,7 @@
     <ClCompile Include="ConeEmissor.cpp" />
     <ClCompile Include="CubeEmissor.cpp" />
     <ClCompile Include="Emisor.cpp" />
+    <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="main.cpp" />
@@ -289,6 +290,8 @@
     <ClCompile Include="SphereEmissor.cpp" />
     <ClCompile Include="StaticParticle.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="WhirlwindForceGenerator.cpp" />
+    <ClCompile Include="WindForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
@@ -298,6 +301,7 @@
     <ClInclude Include="CubeEmissor.h" />
     <ClInclude Include="Emisor.h" />
     <ClInclude Include="EmptyScene.h" />
+    <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="P0S_Scene.h" />
@@ -320,6 +324,8 @@
     <ClInclude Include="SphereEmissor.h" />
     <ClInclude Include="StaticParticle.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="WhirlwindForceGenerator.h" />
+    <ClInclude Include="WindForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
